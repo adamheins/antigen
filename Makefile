@@ -71,7 +71,17 @@ itests:
 	${MAKE} tests CRAM_OPTS=-i
 
 tests:
-	${PYENV} ZDOTDIR="${PROJECT}/tests" cram ${CRAM_OPTS} --shell=${SH} ${TESTS}
+	# Create jail is there is none available
+	[[ ! -d /tmp/jail-gen ]] && sudo jailing --root /tmp/jail-gen || :
+	# Copying src to tmp dir
+	sudo cp -rv ${PROJECT} /tmp/jail-gen/tmp/
+	# Fix access to dev/null
+	sudo rm /tmp/jail-gen/dev/null && sudo cp /dev/null /tmp/jail-gen/dev/null
+	sudo mkdir -p /tmp/jail-gen/root
+	sudo echo -e "[user]\nemail = test@test.test\nname=test\n" > /tmp/jail-gen/tmp/.gitconfig
+	sudo cp /tmp/jail-gen/tmp/.gitconfig /tmp/jail-gen/root/.gitconfig
+	# Running tests inside chroot
+	sudo jailing --root /tmp/jail-gen "${PYENV} ZDOTDIR='/tmp/antigen/tests' cram ${CRAM_OPTS} --shell=${SH} /tmp/antigen/tests"
 
 install:
 	mkdir -p ${PREFIX}/share && cp ${TARGET} ${PREFIX}/share/antigen.zsh
