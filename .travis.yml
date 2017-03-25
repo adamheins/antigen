@@ -1,4 +1,4 @@
-sudo: false
+sudo: required
 
 # Python version to run tests with.
 python:

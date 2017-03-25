@@ -72,7 +72,7 @@ itests:
 
 tests:
 	# Create jail is there is none available
-	[[ ! -d /tmp/jail-gen ]] && sudo jailing --root /tmp/jail-gen || :
+	[ ! -d /tmp/jail-gen ] && sudo jailing --root /tmp/jail-gen || :
 	# Copying src to tmp dir
 	sudo cp -rv ${PROJECT} /tmp/jail-gen/tmp/
 	# Fix access to dev/null
