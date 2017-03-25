@@ -91,7 +91,7 @@ deps:
 	pip install cram=='0.6.*'
 	[ ! -f /usr/bin/jailing ] && \
 		git clone https://github.com/kazuho/jailing /usr/share/jailing && \
-		cd /usr/share/jailing && perl Makefile.PL && ln -s $$PWD/jailing /usr/bin/jailing1
+		cd /usr/share/jailing && perl Makefile.PL && ln -s $$PWD/jailing /usr/bin/jailing
 
 stats:
 	"${SH}" ${PROJECT}/tests/stats.sh "${PROJECT}" "${SH}"
