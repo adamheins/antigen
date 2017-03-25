@@ -87,6 +87,7 @@ install:
 	mkdir -p ${PREFIX}/share && cp ${TARGET} ${PREFIX}/share/antigen.zsh
 
 deps:
+	[ ! -d /usr/bin/jailing ] && git clone https://github.com/kazuho/jailing /usr/bin/jailing; cd /usr/bin/jailing && perl Makefile.PL
 	pip install cram=='0.6.*'
 
 stats:
